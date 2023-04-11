@@ -1,8 +1,8 @@
 {
   "name": "base-echarts",
-  "version": "1.1.8",
+  "version": "2.1.8",
   "type": "module",
-  "description": "带轮播的echarts共用组件",
+  "description": "echarts复用组件，带tooltip轮播，点击事件，可根据浏览器窗口变化，div宽高变化进行自适应",
   "module": "./base-echarts/base-echarts.js",
   "main": "./base-echarts/base-echarts.umd.cjs",
   "files": [
@@ -29,8 +29,8 @@
     "url": "https://juejin.cn/user/571401778506519"
   },
   "dependencies": {
-    "base-echarts": "^1.1.7",
-    "echarts": "^5.3.3",
+    "base-echarts": "^2.1.7",
+    "echarts": "^5.4.1",
     "vue": "^3.2.37"
   },
   "devDependencies": {
