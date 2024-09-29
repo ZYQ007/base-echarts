@@ -1,81 +1,97 @@
 <template>
-  <div :style="{width: width}">
-    <BaseEcharts :height="height"  :options="option" :interval="time" :loopseries="true"></BaseEcharts>
-  </div>
-  <button @click="changeWrap"> 点击 </button>
+  <BaseEcharts :height="height" :width="width" :option="option" :istool="true" :interval="time" :loopseries="true"></BaseEcharts>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import BaseEcharts from './package/base-echarts/index.vue'
-const height = '400px'
-const width = ref('800px')
+import { BaseEcharts } from 'base-echarts'
+const height = '400'
+const width = '800'
 const time = '5000'
-const option =  {
-  title: {
-    text: 'Stacked Line'
-  },
+const option = {
   tooltip: {
-    trigger: 'axis'
+    trigger: 'axis',
+    axisPointer: {
+      // Use axis to trigger tooltip
+      type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+    }
   },
-  legend: {
-    data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-  },
+  legend: {},
   grid: {
     left: '3%',
     right: '4%',
     bottom: '3%',
     containLabel: true
   },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
   xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    type: 'value'
   },
   yAxis: {
-    type: 'value'
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   },
   series: [
     {
-      name: 'Email',
-      type: 'line',
-      stack: 'Total',
+      name: 'Direct',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [320, 302, 301, 334, 390, 330, 320]
+    },
+    {
+      name: 'Mail Ad',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
       data: [120, 132, 101, 134, 90, 230, 210]
     },
     {
-      name: 'Union Ads',
-      type: 'line',
-      stack: 'Total',
+      name: 'Affiliate Ad',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
       data: [220, 182, 191, 234, 290, 330, 310]
     },
     {
-      name: 'Video Ads',
-      type: 'line',
-      stack: 'Total',
-      data: [150, 232, 201, 154, 190, 330, 410]
-    },
-    {
-      name: 'Direct',
-      type: 'line',
-      stack: 'Total',
-      data: [320, 332, 301, 334, 390, 330, 320]
+      name: 'Video Ad',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [150, 212, 201, 154, 190, 330, 410]
     },
     {
       name: 'Search Engine',
-      type: 'line',
-      stack: 'Total',
-      data: [820, 932, 901, 934, 1290, 1330, 1320]
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [820, 832, 901, 934, 1290, 1330, 1320]
     }
   ]
 };
-const changeWrap = () => {
-  width.value = '400px'
-}
 </script>
 
 <style scoped>

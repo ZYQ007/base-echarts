@@ -1,6 +1,4 @@
-/**
- * Created by chengwb on 2016/9/3.
- */
+
 /**
  * echarts tooltip轮播
  * @param chart ECharts实例
@@ -17,7 +15,8 @@
  * }
  * @returns {{clearLoop: clearLoop}|undefined}
  */
-export function loopShowTooltip(chart, chartOption, options) {
+export function loopShowTooltip(chart, chartOption = {}, options ={}) {
+
   let defaultOptions = {
     interval: 2000,
     loopSeries: false,
@@ -72,7 +71,6 @@ export function loopShowTooltip(chart, chartOption, options) {
       clearInterval(timeTicket)
       timeTicket = 0
     }
-
     chart.off('mousemove', stopAutoShow)
     zRender.off('mousemove', zRenderMouseMove)
     zRender.off('globalout', zRenderGlobalOut)
@@ -238,7 +236,8 @@ export function loopShowTooltip(chart, chartOption, options) {
 
       // 显示 tooltip
       tipParams.type = 'showTip'
-      chart.dispatchAction(tipParams)
+      chart.dispatchAction(tipParams);
+      // chart.dispatchAction(tipParams)
 
       lastShowSeriesIndex = seriesIndex
       lastShowDataIndex = dataIndex
@@ -259,7 +258,6 @@ export function loopShowTooltip(chart, chartOption, options) {
     showTip()
     timeTicket = setInterval(showTip, options.interval)
   }
-
   // 关闭轮播
   function stopAutoShow() {
     if (timeTicket) {
@@ -271,13 +269,12 @@ export function loopShowTooltip(chart, chartOption, options) {
       }
     }
   }
-
   let zRender = chart.getZr()
 
   function zRenderMouseMove(param) {
     if (param.event) {
       // 阻止canvas上的鼠标移动事件冒泡
-      // param.event.cancelBubble = true;
+      param.event.cancelBubble = true;
     }
 
     stopAutoShow()
@@ -296,12 +293,15 @@ export function loopShowTooltip(chart, chartOption, options) {
   zRender.on('globalout', zRenderGlobalOut)
 
   autoShowTip()
-
   return {
-    clearLoop: clearLoop
+    clearLoop: clearLoop,
+    autoShowTip: autoShowTip,
+    stopAutoShow: stopAutoShow,
+    timeTicket: timeTicket
   }
 }
 
 export default {
-  loopShowTooltip
+  loopShowTooltip,
+  // clearLoop
 }
